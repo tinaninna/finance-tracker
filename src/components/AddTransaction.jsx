@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddTransaction.css";
 
-const AddTransaction = () => {
+const AddTransaction = ({ addTransaction }) => {
   const [formData, setFormData] = useState({
     amount: "",
     type: "expense",
@@ -11,15 +11,19 @@ const AddTransaction = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Transaction Added:", formData);
+
+    const newTransaction = {
+      id: Date.now(),
+      ...formData,
+      amount: Number(formData.amount),
+    };
+
+    addTransaction(newTransaction);
 
     setFormData({
       amount: "",
@@ -39,7 +43,6 @@ const AddTransaction = () => {
           <input
             type="number"
             name="amount"
-            placeholder="Enter amount"
             value={formData.amount}
             onChange={handleChange}
           />
@@ -58,7 +61,6 @@ const AddTransaction = () => {
           <input
             type="text"
             name="category"
-            placeholder="e.g Food, Rent"
             value={formData.category}
             onChange={handleChange}
           />
@@ -74,9 +76,7 @@ const AddTransaction = () => {
           />
         </div>
 
-        <button type="submit" className="submit-btn">
-          Add Transaction
-        </button>
+        <button className="submit-btn">Add Transaction</button>
       </form>
     </div>
   );
