@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddTransaction from "./components/AddTransaction";
 import TransactionList from "./components/TransactionList";
-
+import Summary from "./components/Summary";
 import Filter from "./components/Filter";
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
     <div>
       <h1 style={{ textAlign: "center" }}>Finance Tracker</h1>
 
-     
+      <Summary transactions={transactions} />
 
       <AddTransaction addTransaction={addTransaction} />
 
