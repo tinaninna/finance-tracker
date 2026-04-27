@@ -1,32 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Filter.css";
 
-const Filter = ({ filter, setFilter }) => {
+function Filter({ filter, setFilter }) {
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearch = () => {
+    setFilter({
+      ...filter,
+      search: searchInput,
+    });
+  };
+
   return (
     <div className="filter-container">
-      <h3>Filter</h3>
 
+      {/* TYPE FILTER */}
       <select
         value={filter.type}
         onChange={(e) =>
           setFilter({ ...filter, type: e.target.value })
         }
       >
-        <option value="all">All Types</option>
+        <option value="all">All</option>
         <option value="income">Income</option>
         <option value="expense">Expense</option>
       </select>
 
+      {/* CATEGORY FILTER */}
       <input
         type="text"
-        placeholder="Search category..."
+        placeholder="Filter by category"
         value={filter.category}
         onChange={(e) =>
           setFilter({ ...filter, category: e.target.value })
         }
       />
+
+      {/* SEARCH INPUT */}
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+      />
+
+      {/* SEARCH BUTTON (NEW ONLY) */}
+      <button onClick={handleSearch}>
+        Search
+      </button>
+
     </div>
   );
-};
+}
 
 export default Filter;

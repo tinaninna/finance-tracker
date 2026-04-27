@@ -1,43 +1,23 @@
-import React, { useState } from "react";
-import AddTransaction from "./components/AddTransaction";
-import TransactionList from "./components/TransactionList";
-import Summary from "./components/Summary";
-import Filter from "./components/Filter";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 
 function App() {
-  const [transactions, setTransactions] = useState([]);
-  const [filter, setFilter] = useState({
-    type: "all",
-    category: "",
-  });
-
-  const addTransaction = (newTransaction) => {
-    setTransactions([...transactions, newTransaction]);
-  };
-
-  const filteredTransactions = transactions.filter((t) => {
-    const typeMatch =
-      filter.type === "all" || t.type === filter.type;
-
-    const categoryMatch = t.category
-      .toLowerCase()
-      .includes(filter.category.toLowerCase());
-
-    return typeMatch && categoryMatch;
-  });
-
   return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>Finance Tracker</h1>
+    <Router>
+      <Routes>
 
-      <Summary transactions={transactions} />
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
 
-      <AddTransaction addTransaction={addTransaction} />
-
-      <Filter filter={filter} setFilter={setFilter} />
-
-      <TransactionList transactions={filteredTransactions} />
-    </div>
+      </Routes>
+    </Router>
   );
 }
 

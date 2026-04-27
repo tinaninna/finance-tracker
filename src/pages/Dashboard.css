@@ -1,0 +1,9 @@
+.dashboard {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
