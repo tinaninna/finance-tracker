@@ -1,23 +1,43 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+// Layout
+import MainLayout from "./layout/MainLayout";
+
+// Pages
 import Dashboard from "./pages/Dashboard";
+import Income from "./pages/Income";
+import Expense from "./pages/Expense";
 import Profile from "./pages/Profile";
+
+// Contexts
+import TransactionProvider from "./context/TransactionContext";
+import ThemeProvider from "./context/ThemeContext";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
-
-      </Routes>
-    </Router>
+    <TransactionProvider>
+      <ThemeProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Main Layout Wrapper */}
+            <Route path="/" element={<MainLayout />}>
+              {/* Pages */}
+              <Route index element={<Dashboard />} />
+              <Route path="income" element={<Income />} />
+              <Route path="expense" element={<Expense />} />
+              <Route path="profile" element={<Profile />} />
+              
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+      <ToastContainer position="top-right" autoClose={3000} />
+    </TransactionProvider>
+    
   );
 }
 

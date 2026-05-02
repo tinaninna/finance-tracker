@@ -1,0 +1,61 @@
+.income-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.income-card {
+  width: 350px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.income-card select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.income-card h2 {
+  margin-bottom: 20px;
+}
+
+.income-card input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.income-card button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.income-card button:hover {
+  background: darkgreen;
+}
+
+.success-message {
+  color: green;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
