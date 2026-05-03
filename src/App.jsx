@@ -9,12 +9,13 @@ import Dashboard from "./pages/Dashboard";
 import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import Profile from "./pages/Profile";
+import Transactions from "./pages/Transactions";
 
 // Contexts
-import TransactionProvider from "./context/TransactionContext";
+import  TransactionProvider  from "./context/TransactionContext";
 import ThemeProvider from "./context/ThemeContext";
 
-import { ToastContainer } from "react-toastify";
+import  {ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
               <Route path="income" element={<Income />} />
               <Route path="expense" element={<Expense />} />
               <Route path="profile" element={<Profile />} />
-              
+              <Route path="/transactions" element={<Transactions />} />
             </Route>
           </Routes>
         </BrowserRouter>

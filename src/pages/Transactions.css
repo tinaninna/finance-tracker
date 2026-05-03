@@ -1,0 +1,97 @@
+.transactions-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.transactions-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 🔍 FILTER */
+.filter-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.filter-container select,
+.filter-container input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 200px;
+}
+
+/* LIST */
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ITEM */
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.transaction-item.income {
+  border-left: 5px solid green;
+}
+
+.transaction-item.expense {
+  border-left: 5px solid red;
+}
+
+/* LEFT SIDE */
+.left h4 {
+  margin: 0;
+}
+
+.left p {
+  margin: 5px 0 0;
+  color: gray;
+}
+
+/* RIGHT SIDE */
+.right {
+  text-align: right;
+}
+
+.amount {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* BUTTON */
+button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #333;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  color: gray;
+}
+.date {
+  font-size: 12px;
+  color: gray;
+  display: block;
+  margin-top: 5px;
+}

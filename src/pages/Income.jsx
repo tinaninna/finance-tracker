@@ -9,11 +9,12 @@ function Income() {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ✅ VALIDATION (must come first)
+    // VALIDATION
     if (!amount || !category) {
       toast.error("Please fill all required fields");
       return;
@@ -24,22 +25,23 @@ function Income() {
       return;
     }
 
-    // ✅ ADD TRANSACTION
+    // ADD TRANSACTION
     addTransaction({
       id: Date.now(),
       type: "income",
       amount: Number(amount),
       category,
       description,
+      date: date || new Date().toISOString(), // fallback if empty
     });
 
-    // ✅ SUCCESS TOAST
     toast.success("Income added successfully!");
 
-    // ✅ CLEAR FORM
+    // CLEAR FORM
     setAmount("");
     setCategory("");
     setDescription("");
+    setDate("");
   };
 
   return (
@@ -73,6 +75,13 @@ function Income() {
             placeholder="Description (optional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+          />
+
+          {/* 📅 DATE FIELD */}
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
 
           <button type="submit">Add Income</button>
