@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { TransactionContext } from "../context/TransactionContext";
 
 import {
@@ -17,7 +18,26 @@ import {
 import "./Dashboard.css";
 
 function Dashboard() {
-  const { transactions } = useContext(TransactionContext);
+  const navigate = useNavigate();
+  const { transactions, search } = useContext(TransactionContext);
+
+  // Filter transactions based on search
+  const filteredTransactions = transactions.filter((t) => {
+    const q = search.toLowerCase();
+    return (
+      t.amount?.toString().includes(q) ||
+      t.category?.toLowerCase().includes(q) ||
+      t.description?.toLowerCase().includes(q) ||
+      t.type?.toLowerCase().includes(q) ||
+      (t.date && t.date.includes(q)) ||
+      t.name?.toLowerCase().includes(q)
+    );
+  });
+
+  // Handle click on search result
+  const handleTransactionClick = (transactionId) => {
+    navigate(`/transactions?highlight=${transactionId}`);
+  };
 
   //  TOTAL INCOME
   const totalIncome = transactions
@@ -70,7 +90,7 @@ function Dashboard() {
     "#9b59b6",
     "#1abc9c",
     "#e67e22",
-    "#2ecc71", // remaining (green)
+    "#2ecc71",
   ];
 
   //  BAR DATA
@@ -82,6 +102,29 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
+      {/* SEARCH RESULTS SECTION */}
+      {search && filteredTransactions.length > 0 && (
+        <div style={{ marginBottom: "20px", padding: "15px", background: "#f8fafc", borderRadius: "8px" }}>
+          <h4>🔍 Search Results for "{search}"</h4>
+          {filteredTransactions.map((t) => (
+            <div 
+              key={t.id} 
+              onClick={() => handleTransactionClick(t.id)}
+              style={{ 
+                padding: "8px 0", 
+                borderBottom: "1px solid #ddd",
+                cursor: "pointer",
+                transition: "background 0.2s"
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = "#e2e8f0"}
+              onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+            >
+              <strong>{t.name || t.category}</strong> - {t.category} - ₹{t.amount} ({t.type})
+            </div>
+          ))}
+        </div>
+      )}
+
       {/*  TOP CARDS */}
       <div className="cards">
         <div className="card income">Income: {totalIncome}</div>

@@ -10,34 +10,34 @@ function ThemeProvider({ children }) {
     const saved = localStorage.getItem("darkMode");
     if (saved === "true") {
       setDarkMode(true);
+    } else if (saved === "false") {
+      setDarkMode(false);
     }
   }, []);
 
   const toggleTheme = () => {
     setDarkMode((prev) => {
-      localStorage.setItem("darkMode", !prev);
-      return !prev;
+      const newValue = !prev;
+      localStorage.setItem("darkMode", newValue);
+      return newValue;
     });
+  };
+
+  // Dynamic styles based on dark mode
+  const themeStyles = {
+    background: darkMode ? "#0f172a" : "#f1f5f9",
+    color: darkMode ? "white" : "black",
+    minHeight: "100vh",
+    transition: "all 0.3s ease",
   };
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
-      <div className={darkMode ? "dark-mode" : "light-mode"}>{children}</div>
+      <div style={themeStyles}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 }
-
-const styles = {
-  dark: {
-    background: "#0f172a",
-    color: "white",
-    minHeight: "100vh",
-  },
-  light: {
-    background: "#f1f5f9",
-    color: "black",
-    minHeight: "100vh",
-  },
-};
 
 export default ThemeProvider;

@@ -1,13 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { TransactionContext } from "../context/TransactionContext";
 import { toast } from "react-toastify";
 import "./Transactions.css";
 
 function Transactions() {
+  const location = useLocation();
   const { transactions, deleteTransaction } = useContext(TransactionContext);
+  const highlightedRef = useRef(null);
 
   const [typeFilter, setTypeFilter] = useState("all");
   const [search, setSearch] = useState("");
+
+  // Get the transaction ID to highlight from URL
+  const queryParams = new URLSearchParams(location.search);
+  const highlightId = queryParams.get("highlight");
+  const highlightIdNumber = highlightId ? parseInt(highlightId) : null;
 
   const filteredTransactions = transactions.filter((t) => {
     const typeMatch =
@@ -19,6 +27,16 @@ function Transactions() {
 
     return typeMatch && searchMatch;
   });
+
+  // Scroll to highlighted transaction when component mounts
+  useEffect(() => {
+    if (highlightedRef.current) {
+      highlightedRef.current.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "center" 
+      });
+    }
+  }, [highlightId]);
 
   const handleDelete = (id) => {
     deleteTransaction(id);
@@ -53,8 +71,13 @@ function Transactions() {
       ) : (
         <div className="transactions-list">
           {filteredTransactions.map((t) => (
-            <div key={t.id} className={`transaction-item ${t.type}`}>
-              
+            <div 
+              key={t.id} 
+              ref={highlightIdNumber === t.id ? highlightedRef : null}
+              className={`transaction-item ${t.type} ${
+                highlightIdNumber === t.id ? "highlighted" : ""
+              }`}
+            >
               <div className="left">
                 <h4>{t.category}</h4>
                 <p>{t.description}</p>
@@ -74,7 +97,6 @@ function Transactions() {
                   Delete
                 </button>
               </div>
-
             </div>
           ))}
         </div>
